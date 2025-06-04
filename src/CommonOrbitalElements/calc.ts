@@ -1,5 +1,5 @@
 const MU = 398600.4418; // Earth's gravitational parameter in km^3/s^2
-// const R_EARTH = 6378.137; // Earth's radius in km
+export const R_EARTH = 6378.137; // Earth's radius in km
 // const G = 6.67259e-11; // Gravitational constant in m^3 kg^-1 s^-2
 
 export interface VectorThree {
@@ -17,12 +17,8 @@ export const convertCoordEciToThree = (coords: VectorThree): VectorThree => {
 };
 
 export interface ClassicalOrbitalElements {
-  positionX: number;
-  positionY: number;
-  positionZ: number;
-  velocityX: number;
-  velocityY: number;
-  velocityZ: number;
+  position: VectorThree;
+  velocity: VectorThree;
   energy: number;
   semiMajorAxis: number; // semi-major axis
   eccentricity: number; // eccentricity
@@ -56,12 +52,8 @@ export function calcClassicalOrbitalElements(
 
   // Placeholder for actual calculation logic
   return {
-    positionX: position.x,
-    positionY: position.y,
-    positionZ: position.z,
-    velocityX: velocity.x,
-    velocityY: velocity.y,
-    velocityZ: velocity.z,
+    position: position,
+    velocity: velocity,
     energy,
     semiMajorAxis,
     eccentricity,
@@ -129,11 +121,11 @@ function calcNVector(angularMomentum: VectorThree) {
   return getVectorCrossProduct(kVector, angularMomentum);
 }
 
-function radiansToDegrees(radians: number): number {
+export function radiansToDegrees(radians: number): number {
   // Multiply radians by 180 divided by pi to convert to degrees.
 
-  return radians;
-  // return radians * (180 / Math.PI);
+  // return radians;
+  return radians * (180 / Math.PI);
 }
 
 function calcEccentricity(
@@ -173,7 +165,7 @@ function calcInclination(position: VectorThree, velocity: VectorThree) {
     result = 2 * Math.PI - result;
   }
 
-  return radiansToDegrees(result);
+  return result;
 }
 
 function calcRightAscension(position: VectorThree, velocity: VectorThree) {
@@ -190,7 +182,7 @@ function calcRightAscension(position: VectorThree, velocity: VectorThree) {
     result = 2 * Math.PI - result;
   }
 
-  return radiansToDegrees(result);
+  return result;
 }
 
 function calcArgumentOfPerigree(
@@ -210,7 +202,7 @@ function calcArgumentOfPerigree(
 
   // result = 2 * Math.PI - result;
 
-  return radiansToDegrees(result);
+  return result;
 }
 
 function calcTrueAnomaly(
@@ -226,5 +218,5 @@ function calcTrueAnomaly(
 
   // if ()
 
-  return radiansToDegrees(result);
+  return result;
 }

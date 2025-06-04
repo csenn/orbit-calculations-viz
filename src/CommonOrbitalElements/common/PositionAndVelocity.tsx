@@ -2,7 +2,7 @@ import { Line } from "@react-three/drei";
 import { Vector3 } from "three";
 import { type VectorThree } from "../calc";
 
-const VELOCITY_SCALE = 200;
+const VELOCITY_LENGTH = 200;
 
 interface PositionAndVelocityProps {
   positionVector: VectorThree;
@@ -22,13 +22,21 @@ export function PositionAndVelocity({
     new Vector3(positionVector.x, positionVector.y, positionVector.z),
   ];
 
+  const velocityDir = new Vector3(
+    velocityVector.x,
+    velocityVector.y,
+    velocityVector.z,
+  ).normalize(); // now a unit vector
+
+  const velocityTip = new Vector3(
+    positionVector.x,
+    positionVector.y,
+    positionVector.z,
+  ).addScaledVector(velocityDir, VELOCITY_LENGTH);
+
   const velocityPoints = [
     new Vector3(positionVector.x, positionVector.y, positionVector.z),
-    new Vector3(
-      positionVector.x + VELOCITY_SCALE * velocityVector.x,
-      positionVector.y + VELOCITY_SCALE * velocityVector.y,
-      positionVector.z + VELOCITY_SCALE * velocityVector.z,
-    ),
+    velocityTip,
   ];
 
   const nPoints = [
@@ -45,13 +53,15 @@ export function PositionAndVelocity({
   //   ),
   // ];
 
+  const green = "#4caf50";
+
   return (
     <>
-      <Line points={positionPoints} color={"green"} />
-      <Line points={velocityPoints} color={"green"} />
+      <Line points={positionPoints} color={green} />
+      {/* <Line points={velocityPoints} color={green} /> */}
 
       {/* Point towards ascension node */}
-      <Line points={nPoints} color={"red"} />
+      <Line points={nPoints} color={"#f44336"} />
       {/* Should point towards perigree */}
       {/* <Line points={eccentricityPoints} color={"orange"} /> */}
 
@@ -67,8 +77,8 @@ export function PositionAndVelocity({
             velocityVector.x,
             velocityVector.y,
             velocityVector.z,
-          ).length() * VELOCITY_SCALE,
-          "green",
+          ).length() * VELOCITY_LENGTH,
+          green,
         ]}
       />
     </>

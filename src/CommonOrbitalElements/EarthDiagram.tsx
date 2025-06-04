@@ -14,6 +14,8 @@ import { Orbit } from "./Orbit";
 import { EquatorPlane } from "./EquatorPlane";
 import { useRef, type ReactNode } from "react";
 import * as THREE from "three";
+import { SatelliteModel } from "./SatelliteModel";
+import { RightAscensionAngle } from "./rightAscensionAngle";
 
 function ECIFrame({ children }: { children: ReactNode }) {
   const group = useRef<THREE.Group>(null!);
@@ -74,6 +76,10 @@ export function EarthDiagram({
           />
           <Orbit classicalOrbitElements={classicalOrbitElements} />
           <EquatorPlane size={classicalOrbitElements.semiMajorAxis * 3} />
+          <SatelliteModel classicalOrbitElements={classicalOrbitElements} />
+          <RightAscensionAngle
+            classicalOrbitElements={classicalOrbitElements}
+          />
         </ECIFrame>
       </Canvas>
 

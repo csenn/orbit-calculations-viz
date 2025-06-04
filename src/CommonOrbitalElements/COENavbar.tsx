@@ -3,7 +3,54 @@ import {
   PositionVelocitySelector,
   type IPositionAndVelocity,
 } from "./PositionVelocitySelector";
-import type { ClassicalOrbitalElements } from "./calc";
+import {
+  radiansToDegrees,
+  type ClassicalOrbitalElements,
+  type VectorThree,
+} from "./calc";
+import type { ReactNode } from "react";
+
+function LabelView({
+  label,
+  children,
+}: {
+  label: string;
+  children: ReactNode;
+}) {
+  return (
+    <Box sx={{ display: "flex", gap: "5px" }}>
+      <Box sx={{ fontWeight: "bold" }}>{label}:</Box>
+      <Box>{children}</Box>
+    </Box>
+  );
+}
+
+function VectorView({ vector }: { vector: VectorThree }) {
+  const x = Math.round(vector.x * 1000) / 1000;
+  const y = Math.round(vector.y * 1000) / 1000;
+  const z = Math.round(vector.z * 1000) / 1000;
+  return (
+    <Box>
+      [{x}i ,{y}j, {z}k]
+    </Box>
+  );
+}
+
+function DegreesView({ val }: { val: number }) {
+  const degrees = Math.round(radiansToDegrees(val) * 100) / 100;
+  const degreeSymbol = String.fromCharCode(176);
+  return (
+    <Box>
+      {degrees}
+      {degreeSymbol}
+    </Box>
+  );
+}
+
+function RoundView({ val }: { val: number }) {
+  const rounded = Math.round(val * 1000) / 1000;
+  return <Box>{rounded}</Box>;
+}
 
 interface COENavbarProps {
   classicalOrbitElements: ClassicalOrbitalElements;
@@ -29,7 +76,43 @@ export function COENavbar({
         onUpdatePositionAndVelocity={onUpdatePositionAndVelocity}
       />
 
-      <Box sx={{ paddingLeft: "10px" }}>{coeViews}</Box>
+      <Box sx={{ paddingLeft: "10px" }}>
+        <LabelView label="Position">
+          <VectorView vector={classicalOrbitElements.position} />
+        </LabelView>
+
+        <LabelView label="Velocity">
+          <VectorView vector={classicalOrbitElements.velocity} />
+        </LabelView>
+
+        <LabelView label="Energy">
+          <RoundView val={classicalOrbitElements.energy} />
+        </LabelView>
+
+        <LabelView label="Semi Major Axis">
+          <RoundView val={classicalOrbitElements.semiMajorAxis} />
+        </LabelView>
+
+        <LabelView label="Eccentricity">
+          <RoundView val={classicalOrbitElements.eccentricity} />
+        </LabelView>
+
+        <LabelView label="Inclination">
+          <DegreesView val={classicalOrbitElements.inclination} />
+        </LabelView>
+        <LabelView label="Right Ascension">
+          <DegreesView val={classicalOrbitElements.rightAscension} />
+        </LabelView>
+
+        <LabelView label="Argument of Perigree">
+          <DegreesView val={classicalOrbitElements.argumentOfPerigee} />
+        </LabelView>
+
+        <LabelView label="True Anomaly">
+          <DegreesView val={classicalOrbitElements.trueAnomaly} />
+        </LabelView>
+        {/* {coeViews} */}
+      </Box>
     </Box>
   );
 }
