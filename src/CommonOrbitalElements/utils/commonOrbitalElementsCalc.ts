@@ -40,7 +40,7 @@ export function calcClassicalOrbitalElements(
   const eccentricity = getVectorMagnitude(eccentricityVector);
   const inclination = calcInclination(position, velocity);
   const rightAscension = calcRightAscension(position, velocity);
-  const argumentOfPerigee = calcArgumentOfPerigree(
+  const argumentOfPerigee = calcArgumentOfPerigee(
     position,
     velocity,
     eccentricityVector,
@@ -161,7 +161,10 @@ function calcInclination(position: VectorThree, velocity: VectorThree) {
 
   let result = Math.acos(getVectorDotProduct(angularMomentum, kVector) / denom);
 
-  if (result < 0 || result > 180) {
+  // Normalize the angle to the range [0, 2π). The previous implementation
+  // incorrectly compared the radian value to the number 180 (degrees), which
+  // meant this branch never executed.
+  if (result < 0 || result > Math.PI) {
     result = 2 * Math.PI - result;
   }
 
@@ -185,7 +188,7 @@ function calcRightAscension(position: VectorThree, velocity: VectorThree) {
   return result;
 }
 
-function calcArgumentOfPerigree(
+function calcArgumentOfPerigee(
   position: VectorThree,
   velocity: VectorThree,
   eccentricityVector: VectorThree,

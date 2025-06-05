@@ -111,7 +111,7 @@ export function COENavbar({
           <DegreesView val={classicalOrbitElements.rightAscension} />
         </LabelView>
 
-        <LabelView label="Argument of Perigree">
+        <LabelView label="Argument of Perigee">
           <DegreesView val={classicalOrbitElements.argumentOfPerigee} />
         </LabelView>
 
