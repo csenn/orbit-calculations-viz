@@ -1,11 +1,10 @@
 import { Line } from "@react-three/drei";
-import { Vector3 } from "three";
 import type { ClassicalOrbitalElements } from "../utils/commonOrbitalElementsCalc";
 import { useFrame } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
 import { Euler } from "three";
 import { useAppStore } from "../../store";
-import { sampleOrbitInPlane } from "../utils/orbitCalc";
+import { getVectorOfOrbit, sampleOrbitInPlane } from "../utils/orbitCalc";
 
 interface OrbitAnimatedProps {
   classicalOrbitElements: ClassicalOrbitalElements;
@@ -50,10 +49,7 @@ export function OrbitAnimated({ classicalOrbitElements }: OrbitAnimatedProps) {
     classicalOrbitElements.eccentricity,
   );
 
-  const normal = new Vector3(0, 0, 1)
-    .applyEuler(new Euler(classicalOrbitElements.inclination, 0, 0, "XYZ"))
-    .applyEuler(new Euler(0, 0, classicalOrbitElements.rightAscension, "XYZ"))
-    .normalize();
+  const orbitVector = getVectorOfOrbit(classicalOrbitElements);
 
   const points = circularOrbit.map((point, i) => {
     const end = (() => {
@@ -92,7 +88,7 @@ export function OrbitAnimated({ classicalOrbitElements }: OrbitAnimatedProps) {
       if (step === 4) {
         const spinAngle =
           stepProgress * classicalOrbitElements.argumentOfPerigee;
-        finalPoint.applyAxisAngle(normal, spinAngle);
+        finalPoint.applyAxisAngle(orbitVector, spinAngle);
       }
 
       return finalPoint;

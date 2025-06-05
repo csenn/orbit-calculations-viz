@@ -1,6 +1,15 @@
 import { Euler, Vector3 } from "three";
 import type { ClassicalOrbitalElements } from "./commonOrbitalElementsCalc";
 
+export function getVectorOfOrbit(
+  classicalOrbitElements: ClassicalOrbitalElements,
+) {
+  return new Vector3(0, 0, 1)
+    .applyEuler(new Euler(classicalOrbitElements.inclination, 0, 0, "XYZ"))
+    .applyEuler(new Euler(0, 0, classicalOrbitElements.rightAscension, "XYZ"))
+    .normalize();
+}
+
 export function sampleOrbitInPlane(
   semiMajorAxis: number,
   eccentricity: number,

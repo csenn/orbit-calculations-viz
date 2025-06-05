@@ -4,6 +4,7 @@ import {
   R_EARTH,
   type ClassicalOrbitalElements,
 } from "../utils/commonOrbitalElementsCalc";
+import { PrettyAngle } from "./InclinationAngle";
 
 function generateArcXY(
   radius: number,
@@ -46,8 +47,16 @@ export function RightAscensionAngle({
         gapSize={100}
       />
       <Html position={arcPoints[0]}>
-        <div style={{ color, fontWeight: "bold", fontSize: "10px" }}>
-          Right Ascension
+        <div
+          style={{
+            color,
+            fontWeight: "bold",
+            fontSize: "10px",
+            whiteSpace: "nowrap",
+          }}
+        >
+          Right Ascension{" "}
+          <PrettyAngle rad={classicalOrbitElements.rightAscension} />
         </div>
       </Html>
     </>

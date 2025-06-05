@@ -2,6 +2,7 @@ import { Html, Line } from "@react-three/drei";
 import { Vector3 } from "three";
 import {
   R_EARTH,
+  radiansToDegrees,
   type ClassicalOrbitalElements,
 } from "../utils/commonOrbitalElementsCalc";
 import { useAppStore } from "../../store";
@@ -24,6 +25,17 @@ function generateArc(
     points.push(p);
   }
   return points;
+}
+
+export function PrettyAngle({ rad }: { rad: number }) {
+  const degrees = Math.round(radiansToDegrees(rad) * 100) / 100;
+  const degreeSymbol = String.fromCharCode(176);
+  return (
+    <span>
+      {degrees}
+      {degreeSymbol}
+    </span>
+  );
 }
 
 export function InclinationAngle({
@@ -65,8 +77,15 @@ export function InclinationAngle({
         gapSize={100}
       />
       <Html position={arcPoints[index]}>
-        <div style={{ color, fontWeight: "bold", fontSize: "10px" }}>
-          Inclination
+        <div
+          style={{
+            color,
+            fontWeight: "bold",
+            fontSize: "10px",
+            whiteSpace: "nowrap",
+          }}
+        >
+          Inclination <PrettyAngle rad={classicalOrbitElements.inclination} />
         </div>
       </Html>
     </>

@@ -45,7 +45,7 @@ export function calcClassicalOrbitalElements(
     velocity,
     eccentricityVector,
   );
-  const trueAnomaly = calcTrueAnomaly(position, eccentricityVector);
+  const trueAnomaly = calcTrueAnomaly(position, velocity, eccentricityVector);
 
   const angularMomentum = calcAngularMomentum(position, velocity);
   const nVector = calcNVector(angularMomentum);
@@ -111,7 +111,10 @@ function calculateSemiMajorAxis(energy: number) {
   return -(MU / (2 * energy));
 }
 
-function calcAngularMomentum(position: VectorThree, velocity: VectorThree) {
+function calcAngularMomentum(
+  position: VectorThree,
+  velocity: VectorThree,
+): VectorThree {
   return getVectorCrossProduct(position, velocity);
 }
 
@@ -212,8 +215,11 @@ function calcArgumentOfPerigee(
 
 function calcTrueAnomaly(
   position: VectorThree,
+  velocity: VectorThree,
   eccentricityVector: VectorThree,
 ) {
+  const dotPositionVelocity = getVectorDotProduct(position, velocity);
+
   const denom =
     getVectorMagnitude(eccentricityVector) * getVectorMagnitude(position);
 
@@ -221,9 +227,9 @@ function calcTrueAnomaly(
     getVectorDotProduct(eccentricityVector, position) / denom,
   );
 
-  // if ()
-
-  // result = 2 * Math.PI - result;
+  if (dotPositionVelocity < 0) {
+    result = 2 * Math.PI - result;
+  }
 
   return result;
 }

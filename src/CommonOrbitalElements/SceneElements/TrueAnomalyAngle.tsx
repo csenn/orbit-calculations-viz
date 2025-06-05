@@ -1,11 +1,12 @@
 import { Html, Line } from "@react-three/drei";
-import { Vector3 } from "three";
+import { Euler, Vector3 } from "three";
 import {
   R_EARTH,
   type ClassicalOrbitalElements,
 } from "../utils/commonOrbitalElementsCalc";
-import { findPerigee } from "../utils/orbitCalc";
+import { findPerigee, getVectorOfOrbit } from "../utils/orbitCalc";
 import { useAppStore } from "../../store";
+import { PrettyAngle } from "./InclinationAngle";
 
 function generateArc(
   startVector: Vector3,
@@ -54,15 +55,22 @@ export function TrueAnomalyAngle({
     classicalOrbitElements.position.z,
   );
 
-  const axis = new Vector3(
-    classicalOrbitElements.nVector.x,
-    classicalOrbitElements.nVector.y,
-    classicalOrbitElements.nVector.z,
-  ).normalize();
+  // const axis = new Vector3(
+  //   classicalOrbitElements.nVector.x,
+  //   classicalOrbitElements.nVector.y,
+  //   classicalOrbitElements.nVector.z,
+  // ).normalize();
 
-  const angle = signedAngle(perigee.clone(), position.clone(), axis);
+  const orbitVector = getVectorOfOrbit(classicalOrbitElements);
 
-  const arcPoints = generateArc(perigee, axis, angle, radius);
+  // const angle = signedAngle(perigee.clone(), position.clone(), axis);
+
+  const arcPoints = generateArc(
+    perigee,
+    orbitVector,
+    classicalOrbitElements.trueAnomaly,
+    radius,
+  );
 
   const index = Math.floor(arcPoints.length / 2);
 
@@ -77,8 +85,15 @@ export function TrueAnomalyAngle({
         gapSize={100}
       />
       <Html position={arcPoints[index]}>
-        <div style={{ color, fontWeight: "bold", fontSize: "10px" }}>
-          True Anomaly
+        <div
+          style={{
+            color,
+            fontWeight: "bold",
+            fontSize: "10px",
+            whiteSpace: "nowrap",
+          }}
+        >
+          True Anomaly <PrettyAngle rad={classicalOrbitElements.trueAnomaly} />
         </div>
       </Html>
     </>

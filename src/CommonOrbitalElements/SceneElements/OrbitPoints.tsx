@@ -33,7 +33,14 @@ function LabelDot({
         </mesh>
 
         <Html position={[0, 0, 100]}>
-          <div style={{ color, fontWeight: "bold", fontSize: "10px" }}>
+          <div
+            style={{
+              color,
+              fontWeight: "bold",
+              fontSize: "10px",
+              whiteSpace: "nowrap",
+            }}
+          >
             {label}
           </div>
         </Html>
