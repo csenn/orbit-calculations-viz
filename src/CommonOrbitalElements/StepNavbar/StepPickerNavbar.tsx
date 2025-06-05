@@ -6,7 +6,7 @@ const STEPS = [
   "Add Eccentricity",
   "Add Inclination/Tilt",
   "Twist to Right Ascension",
-  "Rotate from Argument of Perigree",
+  "Rotate from Argument of Perigee",
 ];
 
 export function StepPickerNavbar() {
