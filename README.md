@@ -2,16 +2,12 @@
 
 This project is an educational tool for learning how the **Classical Orbital Elements** (COEs) describe a satellite's trajectory.  It allows you to start with a position and velocity vector and watch how each element contributes to the final orbit.
 
-## Getting Started
+## How to use
 
-1. Install dependencies and start the dev server:
-   ```bash
-   npm install
-   npm run dev
-   ```
-   Then open the provided local URL in your browser.
+You can find a live demo at [https://csenn.github.io/orbit-calculations-viz/](https://csenn.github.io/orbit-calculations-viz/).
 
-2. Choose one of the predefined orbit examples or enter custom **position** and **velocity** vectors (in kilometers and km/s).  The app will calculate the COEs for the selected state vector.
+
+Choose one of the predefined orbit examples or enter custom **position** and **velocity** vectors (in kilometers and km/s).  The app will calculate the COEs for the selected state vector. Then step through each transformation to see how they are applied.
 
 ## What are the COEs?
 
@@ -38,7 +34,16 @@ The application uses React Three Fiber to animate the orbit construction:
 
 Each step builds on the previous one, helping visualize how the COEs transform a simple circle into the final orbit.  The **Step** navigation bar in `src/CommonOrbitalElements/StepNavbar/StepPickerNavbar.tsx` controls the animation sequence.
 
-You can find a live demo at [https://csenn.github.io/orbit-calculations-viz/](https://csenn.github.io/orbit-calculations-viz/).
+
+
+## Local Development
+
+Install dependencies and start the dev server:
+   ```bash
+   npm install
+   npm run dev
+   ```
+   Then open the provided local URL in your browser.
 
 ## License
 
