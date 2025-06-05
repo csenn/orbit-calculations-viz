@@ -1,10 +1,10 @@
-import { Line } from "@react-three/drei";
+import { Html, Line } from "@react-three/drei";
 import { Vector3 } from "three";
 import {
   R_EARTH,
   type ClassicalOrbitalElements,
 } from "../utils/commonOrbitalElementsCalc";
-import { useMemo } from "react";
+import { useAppStore } from "../../store";
 
 function generateArc(
   nVector: Vector3,
@@ -13,7 +13,8 @@ function generateArc(
   segments = 64,
 ): Vector3[] {
   const axis = nVector.clone().normalize();
-  const start = new Vector3().crossVectors(axis, new Vector3(0, 0, 1))
+  const start = new Vector3()
+    .crossVectors(axis, new Vector3(0, 0, 1))
     .normalize()
     .multiplyScalar(radius);
   const points: Vector3[] = [];
@@ -27,19 +28,16 @@ function generateArc(
 
 export function InclinationAngle({
   classicalOrbitElements,
-  color = "#ffeb3b",
+  color = "#FFB74D",
 }: {
   classicalOrbitElements: ClassicalOrbitalElements;
   color?: string;
 }) {
-  const dashedProps = useMemo(
-    () => ({
-      dashed: true,
-      dashSize: 200,
-      gapSize: 100,
-    }),
-    [],
-  );
+  const { step } = useAppStore();
+
+  if (step < 4) {
+    return;
+  }
 
   const radius = R_EARTH + 1000;
   const nVector = new Vector3(
@@ -53,5 +51,24 @@ export function InclinationAngle({
     radius,
   );
 
-  return <Line points={arcPoints} color={color} lineWidth={2} {...dashedProps} />;
+  // should always exist
+  const index = Math.floor(arcPoints.length / 2);
+
+  return (
+    <>
+      <Line
+        points={arcPoints}
+        color={color}
+        lineWidth={2}
+        dashed={true}
+        dashSize={200}
+        gapSize={100}
+      />
+      <Html position={arcPoints[index]}>
+        <div style={{ color, fontWeight: "bold", fontSize: "10px" }}>
+          Inclination
+        </div>
+      </Html>
+    </>
+  );
 }

@@ -15,6 +15,7 @@ import * as THREE from "three";
 import { SatelliteModel } from "./SceneElements/SatelliteModel";
 import { OrbitAnimated } from "./SceneElements/OrbitAnimated";
 import { RichAscension } from "./SceneElements/RighAscension";
+import { InclinationAngle } from "./SceneElements/InclinationAngle";
 
 function ECIFrame({ children }: { children: ReactNode }) {
   const group = useRef<THREE.Group>(null!);
@@ -71,6 +72,7 @@ export function EarthScene({
           <SatelliteModel classicalOrbitElements={classicalOrbitElements} />
 
           <RichAscension classicalOrbitElements={classicalOrbitElements} />
+          <InclinationAngle classicalOrbitElements={classicalOrbitElements} />
         </ECIFrame>
       </Canvas>
 

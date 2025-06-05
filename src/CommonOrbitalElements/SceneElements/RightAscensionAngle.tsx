@@ -1,10 +1,9 @@
-import { Line } from "@react-three/drei";
+import { Html, Line } from "@react-three/drei";
 import { Vector3 } from "three";
 import {
   R_EARTH,
   type ClassicalOrbitalElements,
 } from "../utils/commonOrbitalElementsCalc";
-import { useMemo } from "react";
 
 function generateArcXY(
   radius: number,
@@ -30,15 +29,6 @@ export function RightAscensionAngle({
   // angle: number; // radians (e.g. RAAN)
   color?: string;
 }) {
-  const dashedProps = useMemo(
-    () => ({
-      dashed: true,
-      dashSize: 200,
-      gapSize: 100,
-    }),
-    [],
-  );
-
   const radius = R_EARTH + 1000;
   const arcPoints = generateArcXY(
     radius,
@@ -46,6 +36,20 @@ export function RightAscensionAngle({
   );
 
   return (
-    <Line points={arcPoints} color={color} lineWidth={2} {...dashedProps} />
+    <>
+      <Line
+        points={arcPoints}
+        color={color}
+        lineWidth={2}
+        dashed={true}
+        dashSize={200}
+        gapSize={100}
+      />
+      <Html position={arcPoints[0]}>
+        <div style={{ color, fontWeight: "bold", fontSize: "10px" }}>
+          Right Ascension
+        </div>
+      </Html>
+    </>
   );
 }
