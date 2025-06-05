@@ -1,5 +1,5 @@
 import { Euler, Vector3 } from "three";
-import type { ClassicalOrbitalElements } from "./calc";
+import type { ClassicalOrbitalElements } from "./commonOrbitalElementsCalc";
 
 export function sampleOrbitInPlane(
   semiMajorAxis: number,

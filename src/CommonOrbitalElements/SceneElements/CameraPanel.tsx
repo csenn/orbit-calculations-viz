@@ -1,7 +1,7 @@
 import { Box, Button } from "@mui/material";
-import { useAppStore } from "../store";
+import { useAppStore } from "../../store";
 import { Vector3 } from "three";
-import { convertCoordEciToThree } from "./calc";
+import { convertCoordEciToThree } from "../utils/commonOrbitalElementsCalc";
 
 export function CameraPanel() {
   const { setCameraPosition } = useAppStore();

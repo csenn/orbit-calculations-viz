@@ -6,12 +6,29 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useState } from "react";
 import { VectorUpdate } from "./VectorUpdate";
-import { type VectorThree } from "./calc";
+import { type VectorThree } from "../utils/commonOrbitalElementsCalc";
+import type { velocity } from "three/tsl";
 
 export interface IPositionAndVelocity {
   positionVector: VectorThree;
   velocityVector: VectorThree;
 }
+
+const options = [
+  {
+    position: {
+      x: 8228,
+      y: 389,
+      z: 6888,
+    },
+
+    velocity: { x: -0.7, y: 6.6, z: -0.6 },
+  },
+  {
+    position: { x: 0, y: 0, z: 16000 },
+    velocity: { x: 0, y: -4.5, z: 0 },
+  },
+];
 
 interface PositionVelocitySelectorProps {
   onUpdatePositionAndVelocity: (posAndVel: IPositionAndVelocity) => void;
@@ -52,8 +69,10 @@ export function PositionVelocitySelector({
 
   return (
     <Box>
-      <Box sx={{ padding: "5px" }}>
-        <Button onClick={handleClickOpen}>Update Position and Velocity</Button>
+      <Box sx={{ padding: "10px" }}>
+        <Button onClick={handleClickOpen} variant="outlined">
+          Update Position and Velocity
+        </Button>
       </Box>
       <Dialog open={open} onClose={handleClose} maxWidth="md">
         <DialogTitle>Position And Velocity</DialogTitle>

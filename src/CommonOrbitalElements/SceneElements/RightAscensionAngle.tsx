@@ -1,8 +1,10 @@
 import { Line } from "@react-three/drei";
 import { Vector3 } from "three";
-import { R_EARTH, type ClassicalOrbitalElements } from "./calc";
+import {
+  R_EARTH,
+  type ClassicalOrbitalElements,
+} from "../utils/commonOrbitalElementsCalc";
 import { useMemo } from "react";
-import { LineDashedMaterial } from "three";
 
 function generateArcXY(
   radius: number,

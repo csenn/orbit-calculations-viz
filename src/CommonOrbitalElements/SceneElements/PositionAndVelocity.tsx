@@ -1,6 +1,6 @@
 import { Line } from "@react-three/drei";
 import { Vector3 } from "three";
-import { type VectorThree } from "../calc";
+import { type VectorThree } from "../utils/commonOrbitalElementsCalc";
 
 const VELOCITY_LENGTH = 200;
 

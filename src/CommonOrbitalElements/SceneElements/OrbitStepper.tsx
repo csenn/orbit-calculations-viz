@@ -1,11 +1,11 @@
 import { Line } from "@react-three/drei";
 import { Vector3, Group } from "three";
-import type { ClassicalOrbitalElements } from "./calc";
+import type { ClassicalOrbitalElements } from "../utils/commonOrbitalElementsCalc";
 import { useFrame } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
-import { sampleOrbitInPlane } from "./orbitCalc";
 import { Euler } from "three";
-import { useAppStore } from "../store";
+import { useAppStore } from "../../store";
+import { sampleOrbitInPlane } from "../utils/orbitCalc";
 
 interface OrbitStepperProps {
   classicalOrbitElements: ClassicalOrbitalElements;

@@ -1,22 +1,23 @@
 import { Canvas } from "@react-three/fiber";
-import { Earth } from "./common/Earth";
-import { EarthCoords } from "./common/EarthCoords";
-import { CameraController } from "./common/CameraController";
-import { CameraPanel } from "./CameraPanel";
-import { PositionAndVelocity } from "./common/PositionAndVelocity";
+import { Earth } from "./SceneElements/Earth";
+import { EarthCoords } from "./SceneElements/EarthCoords";
+import { CameraController } from "./SceneElements/CameraController";
+import { CameraPanel } from "./SceneElements/CameraPanel";
+import { PositionAndVelocity } from "./SceneElements/PositionAndVelocity";
 import {
   convertCoordEciToThree,
   multiplyVectorByScalar,
   type ClassicalOrbitalElements,
   type VectorThree,
-} from "./calc";
-import { Orbit } from "./Orbit";
-import { EquatorPlane } from "./EquatorPlane";
+} from "./utils/commonOrbitalElementsCalc";
+import { Orbit } from "./SceneElements/Orbit";
+import { EquatorPlane } from "./SceneElements/EquatorPlane";
 import { useRef, type ReactNode } from "react";
 import * as THREE from "three";
-import { SatelliteModel } from "./SatelliteModel";
-import { RightAscensionAngle } from "./rightAscensionAngle";
-import { OrbitStepper } from "./OrbitStepper";
+import { SatelliteModel } from "./SceneElements/SatelliteModel";
+// import { RightAscensionAngle } from "./RightAscensionAngle";
+import { OrbitStepper } from "./SceneElements/OrbitStepper";
+import { RightAscensionAngle } from "./SceneElements/RightAscensionAngle";
 
 function ECIFrame({ children }: { children: ReactNode }) {
   const group = useRef<THREE.Group>(null!);
@@ -75,7 +76,7 @@ export function EarthDiagram({
             nVector={nThree}
             eccentricityVector={eccentricityThree}
           />
-          {/* <Orbit classicalOrbitElements={classicalOrbitElements} /> */}
+          <Orbit classicalOrbitElements={classicalOrbitElements} />
           <OrbitStepper classicalOrbitElements={classicalOrbitElements} />
           <EquatorPlane size={classicalOrbitElements.semiMajorAxis * 3} />
           <SatelliteModel classicalOrbitElements={classicalOrbitElements} />

@@ -1,10 +1,10 @@
 import { Box, Button, Step, StepLabel, Stepper } from "@mui/material";
-import { useAppStore } from "../store";
+import { useAppStore } from "../../store";
 
 const STEPS = [
   "Circular Orbit",
   "Add Eccentricity",
-  "Add Tilt",
+  "Add Inclination/Tilt",
   "Twist to Right Ascension",
   "Rotate from Argument of Perigree",
 ];

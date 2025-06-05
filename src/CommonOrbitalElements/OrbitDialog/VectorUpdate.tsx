@@ -1,5 +1,5 @@
 import { Box, TextField } from "@mui/material";
-import { type VectorThree } from "./calc";
+import { type VectorThree } from "../utils/commonOrbitalElementsCalc";
 
 interface VectorUpdateProps {
   label: string;

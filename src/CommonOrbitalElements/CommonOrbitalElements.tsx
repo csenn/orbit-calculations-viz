@@ -1,13 +1,16 @@
 import { useMemo, useState } from "react";
-import { calcClassicalOrbitalElements, type VectorThree } from "./calc";
+import {
+  calcClassicalOrbitalElements,
+  type VectorThree,
+} from "./utils/commonOrbitalElementsCalc";
 import { EarthDiagram } from "./EarthDiagram";
 import { Box } from "@mui/material";
 import {
   PositionVelocitySelector,
   type IPositionAndVelocity,
-} from "./PositionVelocitySelector";
+} from "./OrbitDialog/PositionVelocitySelector";
 import { COENavbar } from "./COENavbar";
-import { StepPickerNavbar } from "./StepPickerNavbar";
+import { StepPickerNavbar } from "./StepNavbar/StepPickerNavbar";
 
 export function CommonOrbitalElements() {
   const [positionVector, setPositionVector] = useState<VectorThree>({

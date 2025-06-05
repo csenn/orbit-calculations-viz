@@ -2,12 +2,12 @@ import { Box } from "@mui/material";
 import {
   PositionVelocitySelector,
   type IPositionAndVelocity,
-} from "./PositionVelocitySelector";
+} from "./OrbitDialog/PositionVelocitySelector";
 import {
   radiansToDegrees,
   type ClassicalOrbitalElements,
   type VectorThree,
-} from "./calc";
+} from "./utils/commonOrbitalElementsCalc";
 import type { ReactNode } from "react";
 
 function LabelView({
@@ -18,7 +18,7 @@ function LabelView({
   children: ReactNode;
 }) {
   return (
-    <Box sx={{ display: "flex", gap: "5px" }}>
+    <Box sx={{ display: "flex", gap: "5px", paddingTop: "4px" }}>
       <Box sx={{ fontWeight: "bold" }}>{label}:</Box>
       <Box>{children}</Box>
     </Box>
@@ -76,7 +76,11 @@ export function COENavbar({
         onUpdatePositionAndVelocity={onUpdatePositionAndVelocity}
       />
 
-      <Box sx={{ paddingLeft: "10px" }}>
+      <Box sx={{ paddingLeft: "10px", paddingTop: "5px" }}>
+        {/* <Box sx={{marginTop: '10px',  color: 'primary.main'}}>
+          Given Values
+        </Box> */}
+
         <LabelView label="Position">
           <VectorView vector={classicalOrbitElements.position} />
         </LabelView>
@@ -85,6 +89,9 @@ export function COENavbar({
           <VectorView vector={classicalOrbitElements.velocity} />
         </LabelView>
 
+        <Box sx={{ marginTop: "20px", color: "primary.main" }}>
+          Common Orbital Elements
+        </Box>
         <LabelView label="Energy">
           <RoundView val={classicalOrbitElements.energy} />
         </LabelView>

@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { Group, Vector3 } from "three";
-import type { ClassicalOrbitalElements } from "./calc";
+import type { ClassicalOrbitalElements } from "../utils/commonOrbitalElementsCalc";
 // import { useFrame } from '@react-three/fiber';
 
 export function SatelliteModel({
