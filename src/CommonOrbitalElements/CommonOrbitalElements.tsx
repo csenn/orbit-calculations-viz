@@ -7,6 +7,7 @@ import {
   type IPositionAndVelocity,
 } from "./PositionVelocitySelector";
 import { COENavbar } from "./COENavbar";
+import { StepPickerNavbar } from "./StepPickerNavbar";
 
 export function CommonOrbitalElements() {
   const [positionVector, setPositionVector] = useState<VectorThree>({
@@ -59,12 +60,17 @@ export function CommonOrbitalElements() {
           classicalOrbitElements={classicalOrbitElements}
         />
       </Box>
-      <Box sx={{ flexGrow: 1, overflow: "hidden" }}>
-        <EarthDiagram
-          positionVector={positionVector}
-          velocityVector={velocityVector}
-          classicalOrbitElements={classicalOrbitElements}
-        />
+      <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
+        <Box>
+          <StepPickerNavbar />
+        </Box>
+        <Box sx={{ flexGrow: 1 }}>
+          <EarthDiagram
+            positionVector={positionVector}
+            velocityVector={velocityVector}
+            classicalOrbitElements={classicalOrbitElements}
+          />
+        </Box>
       </Box>
     </Box>
   );
