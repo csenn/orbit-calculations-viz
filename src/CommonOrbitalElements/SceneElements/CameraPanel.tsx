@@ -1,7 +1,7 @@
 import { Box, Button } from "@mui/material";
 import { useAppStore } from "../../store";
 import { Vector3 } from "three";
-import { convertCoordEciToThree } from "../utils/commonOrbitalElementsCalc";
+// import { convertCoordEciToThree } from "../utils/commonOrbitalElementsCalc";
 
 export function CameraPanel() {
   const { setCameraPosition } = useAppStore();
@@ -9,23 +9,25 @@ export function CameraPanel() {
     setCameraPosition(new Vector3(...value));
   };
 
-  const xVector = convertCoordEciToThree({
+  // Need to do weird conversions here? The ECI frame for everything else
+  // is handled by the wrapper around Canvas
+  const xVector = {
     x: 20000,
     y: 0,
     z: 0,
-  });
+  };
 
-  const yVector = convertCoordEciToThree({
+  const yVector = {
+    x: 0,
+    y: 0,
+    z: -20000,
+  };
+
+  const zVector = {
     x: 0,
     y: 20000,
     z: 0,
-  });
-
-  const zVector = convertCoordEciToThree({
-    x: 0,
-    y: 0,
-    z: 20000,
-  });
+  };
 
   return (
     <Box

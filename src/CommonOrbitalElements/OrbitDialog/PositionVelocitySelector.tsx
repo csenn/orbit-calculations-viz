@@ -17,6 +17,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { useState } from "react";
 import { VectorUpdate } from "./VectorUpdate";
 import { type VectorThree } from "../utils/commonOrbitalElementsCalc";
+import { TLEInput } from "./TLEInput";
 
 interface OrbitOption {
   label: string;
@@ -30,40 +31,47 @@ export interface IPositionAndVelocity {
 }
 
 // Preset orbit examples for quick selection
-const options: OrbitOption[] = [
+const ORBIT_EXAMPLES: OrbitOption[] = [
   {
     label: "LEO Prograde",
     position: { x: 8228, y: 389, z: 6888 },
     velocity: { x: -0.7, y: 6.6, z: -0.6 },
   },
   {
-    label: "HEO Example",
-    position: { x: 0, y: 0, z: 16000 },
-    velocity: { x: 0, y: -4.5, z: 0 },
+    label: "LEO Prograde (ISS-like)",
+    position: { x: 6524, y: 686, z: 2290 },
+    velocity: { x: -0.231, y: 7.342, z: 6.553 },
   },
   {
-    label: "GEO Circular",
-    position: { x: 0, y: 0, z: 42164 },
-    velocity: { x: 3.1, y: 0, z: 0 },
+    label: "HEO (Molniya-type)",
+    position: { x: 24653.97, y: -5454.1997, z: 22915.83 }, // km from Earth center
+    velocity: { x: 0.09304, y: 1.3419, z: -2.56 },
   },
   {
-    label: "Polar LEO",
-    position: { x: 0, y: 7078, z: 0 },
-    velocity: { x: -7.5, y: 0, z: 0 },
+    label: "GEO Tilted (3° Inclination)",
+    position: { x: 26500, y: 12000, z: 31000 },
+    velocity: { x: -2.3, y: 2.85, z: -0.43 }, // ~24-hr orbit, small tilt
   },
   {
-    label: "Retrograde LEO",
-    position: { x: 7000, y: 0, z: 0 },
-    velocity: { x: 0, y: -7.8, z: 0 },
+    label: "Sun-Synchronous Orbit (SSO)",
+    position: { x: 7078, y: -300, z: 0 },
+    velocity: { x: 0.1, y: 1.4, z: 7.45 }, // near-polar, retrograde ~98°
+  },
+  {
+    label: "MEO (GPS-like)",
+    position: { x: 26560, y: 5200, z: 4900 },
+    velocity: { x: -1.2, y: 3.13, z: 0.1 }, // ~12-hour orbit
   },
 ];
 
 interface PositionVelocitySelectorProps {
+  setModelLabel: (label: string) => void;
   onUpdatePositionAndVelocity: (posAndVel: IPositionAndVelocity) => void;
 }
 
 export function PositionVelocitySelector({
   onUpdatePositionAndVelocity,
+  setModelLabel,
 }: PositionVelocitySelectorProps) {
   const [open, setOpen] = useState(false);
 
@@ -88,6 +96,7 @@ export function PositionVelocitySelector({
   };
 
   const updateData = () => {
+    setModelLabel("Custom");
     onUpdatePositionAndVelocity({
       positionVector,
       velocityVector,
@@ -96,6 +105,7 @@ export function PositionVelocitySelector({
   };
 
   const onSelectOption = (option: OrbitOption) => {
+    setModelLabel(option.label);
     setPositionVector(option.position);
     setVelocityVector(option.velocity);
     onUpdatePositionAndVelocity({
@@ -107,6 +117,7 @@ export function PositionVelocitySelector({
 
   return (
     <Box>
+      <TLEInput />
       <Box sx={{ padding: "10px" }}>
         <Button onClick={handleClickOpen} variant="outlined">
           Update Position and Velocity
@@ -115,9 +126,7 @@ export function PositionVelocitySelector({
       <Dialog open={open} onClose={handleClose} maxWidth="md">
         <DialogTitle>Position And Velocity</DialogTitle>
         <DialogContent sx={{ minWidth: "600px" }}>
-          <DialogContentText>
-            Choose an orbit below or enter a custom vector.
-          </DialogContentText>
+          <DialogContentText>Choose an example orbit below</DialogContentText>
 
           <TableContainer component={Paper} sx={{ marginTop: "10px" }}>
             <Table size="small">
@@ -129,7 +138,7 @@ export function PositionVelocitySelector({
                 </TableRow>
               </TableHead>
               <TableBody>
-                {options.map((opt) => (
+                {ORBIT_EXAMPLES.map((opt) => (
                   <TableRow
                     key={opt.label}
                     hover
@@ -149,7 +158,12 @@ export function PositionVelocitySelector({
             </Table>
           </TableContainer>
 
-          <Box sx={{ paddingTop: "20px" }}>
+          <DialogContentText sx={{ paddingTop: "30px" }}>
+            <strong style={{ color: "black" }}>OR</strong> enter a custom
+            vector.
+          </DialogContentText>
+
+          <Box sx={{}}>
             <VectorUpdate
               label="Position"
               vector={positionVector}

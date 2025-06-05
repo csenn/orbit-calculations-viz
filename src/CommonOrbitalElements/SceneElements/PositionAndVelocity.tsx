@@ -7,42 +7,37 @@ const VELOCITY_LENGTH = 200;
 interface PositionAndVelocityProps {
   positionVector: VectorThree;
   velocityVector: VectorThree;
-  nVector: VectorThree;
-  eccentricityVector: VectorThree;
+  // nVector: VectorThree;
+  // eccentricityVector: VectorThree;
 }
 
 export function PositionAndVelocity({
   positionVector,
   velocityVector,
-  nVector,
-  eccentricityVector,
+  // nVector,
+  // eccentricityVector,
 }: PositionAndVelocityProps) {
   const positionPoints = [
     new Vector3(0, 0, 0),
     new Vector3(positionVector.x, positionVector.y, positionVector.z),
   ];
 
-  const velocityDir = new Vector3(
-    velocityVector.x,
-    velocityVector.y,
-    velocityVector.z,
-  ).normalize(); // now a unit vector
+  // const velocityDir = new Vector3(
+  //   velocityVector.x,
+  //   velocityVector.y,
+  //   velocityVector.z,
+  // ).normalize(); // now a unit vector
 
-  const velocityTip = new Vector3(
-    positionVector.x,
-    positionVector.y,
-    positionVector.z,
-  ).addScaledVector(velocityDir, VELOCITY_LENGTH);
+  // const velocityTip = new Vector3(
+  //   positionVector.x,
+  //   positionVector.y,
+  //   positionVector.z,
+  // ).addScaledVector(velocityDir, VELOCITY_LENGTH);
 
-  const velocityPoints = [
-    new Vector3(positionVector.x, positionVector.y, positionVector.z),
-    velocityTip,
-  ];
-
-  const nPoints = [
-    new Vector3(0, 0, 0),
-    new Vector3(nVector.x, nVector.y, nVector.z),
-  ];
+  // const velocityPoints = [
+  //   new Vector3(positionVector.x, positionVector.y, positionVector.z),
+  //   velocityTip,
+  // ];
 
   // const eccentricityPoints = [
   //   new Vector3(0, 0, 0),
@@ -60,8 +55,6 @@ export function PositionAndVelocity({
       <Line points={positionPoints} color={green} />
       {/* <Line points={velocityPoints} color={green} /> */}
 
-      {/* Point towards ascension node */}
-      <Line points={nPoints} color={"#f44336"} />
       {/* Should point towards perigree */}
       {/* <Line points={eccentricityPoints} color={"orange"} /> */}
 

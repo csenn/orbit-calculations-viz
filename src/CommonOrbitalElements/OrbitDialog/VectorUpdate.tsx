@@ -37,7 +37,15 @@ export function VectorUpdate({
   };
   return (
     <Box sx={{ display: "flex", gap: "10px", alignItems: "center" }}>
-      <Box sx={{ paddingRight: "10px", fontWeight: "bold" }}>{label}</Box>
+      <Box
+        sx={{
+          paddingRight: "10px",
+          color: "rgb(100,100,100)",
+          fontStyle: "italic",
+        }}
+      >
+        {label}
+      </Box>
       <TextField
         value={vector.x}
         onChange={onChangeX}

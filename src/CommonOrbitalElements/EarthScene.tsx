@@ -5,19 +5,16 @@ import { CameraController } from "./SceneElements/CameraController";
 import { CameraPanel } from "./SceneElements/CameraPanel";
 import { PositionAndVelocity } from "./SceneElements/PositionAndVelocity";
 import {
-  convertCoordEciToThree,
-  multiplyVectorByScalar,
   type ClassicalOrbitalElements,
   type VectorThree,
 } from "./utils/commonOrbitalElementsCalc";
-import { Orbit } from "./SceneElements/Orbit";
+import { OrbitPoints } from "./SceneElements/OrbitPoints";
 import { EquatorPlane } from "./SceneElements/EquatorPlane";
 import { useRef, type ReactNode } from "react";
 import * as THREE from "three";
 import { SatelliteModel } from "./SceneElements/SatelliteModel";
-// import { RightAscensionAngle } from "./RightAscensionAngle";
-import { OrbitStepper } from "./SceneElements/OrbitStepper";
-import { RightAscensionAngle } from "./SceneElements/RightAscensionAngle";
+import { OrbitAnimated } from "./SceneElements/OrbitAnimated";
+import { RichAscension } from "./SceneElements/RighAscension";
 
 function ECIFrame({ children }: { children: ReactNode }) {
   const group = useRef<THREE.Group>(null!);
@@ -36,19 +33,13 @@ interface EarthDiagramProps {
   classicalOrbitElements: ClassicalOrbitalElements;
 }
 
-export function EarthDiagram({
+export function EarthScene({
   positionVector,
   velocityVector,
   classicalOrbitElements,
 }: EarthDiagramProps) {
   const positionThree = positionVector;
   const velocityThree = velocityVector;
-  const nThree = classicalOrbitElements.nVector;
-  // const nThree = classicalOrbitElements.nVector
-  const eccentricityThree = multiplyVectorByScalar(
-    100000,
-    convertCoordEciToThree(classicalOrbitElements.eccentricityVector),
-  );
 
   return (
     <>
@@ -73,16 +64,13 @@ export function EarthDiagram({
           <PositionAndVelocity
             positionVector={positionThree}
             velocityVector={velocityThree}
-            nVector={nThree}
-            eccentricityVector={eccentricityThree}
           />
-          <Orbit classicalOrbitElements={classicalOrbitElements} />
-          <OrbitStepper classicalOrbitElements={classicalOrbitElements} />
+          <OrbitPoints classicalOrbitElements={classicalOrbitElements} />
+          <OrbitAnimated classicalOrbitElements={classicalOrbitElements} />
           <EquatorPlane size={classicalOrbitElements.semiMajorAxis * 3} />
           <SatelliteModel classicalOrbitElements={classicalOrbitElements} />
-          <RightAscensionAngle
-            classicalOrbitElements={classicalOrbitElements}
-          />
+
+          <RichAscension classicalOrbitElements={classicalOrbitElements} />
         </ECIFrame>
       </Canvas>
 

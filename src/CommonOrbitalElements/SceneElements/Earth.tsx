@@ -1,10 +1,10 @@
 import { useRef } from "react";
-import { useFrame, useLoader } from "@react-three/fiber";
+import { useLoader } from "@react-three/fiber";
 import { Mesh, TextureLoader } from "three";
 import EarthMapJpg from "../../assets/earth-realistic-8k.webp";
 import * as THREE from "three";
 export const EARTH_RADIUS = 6378; // Radius of the Earth in your 3D model units
-const EARTH_ROTATION_SPEED = (360 / 86164) * (Math.PI / 180); // Radians per second
+// const EARTH_ROTATION_SPEED = (360 / 86164) * (Math.PI / 180); // Radians per second
 // export const TILT_ANGLE = 23.5 * (Math.PI / 180); // Earth's axial tilt in radians
 export const TILT_ANGLE = 0;
 

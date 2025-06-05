@@ -1,5 +1,5 @@
 import { Line } from "@react-three/drei";
-import { Vector3, Group } from "three";
+import { Vector3 } from "three";
 import type { ClassicalOrbitalElements } from "../utils/commonOrbitalElementsCalc";
 import { useFrame } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
@@ -7,12 +7,12 @@ import { Euler } from "three";
 import { useAppStore } from "../../store";
 import { sampleOrbitInPlane } from "../utils/orbitCalc";
 
-interface OrbitStepperProps {
+interface OrbitAnimatedProps {
   classicalOrbitElements: ClassicalOrbitalElements;
 }
 
-export function OrbitStepper({ classicalOrbitElements }: OrbitStepperProps) {
-  const { step } = useAppStore();
+export function OrbitAnimated({ classicalOrbitElements }: OrbitAnimatedProps) {
+  const { step, isAnimating, setIsAnimating } = useAppStore();
 
   const durationPerStep = 5;
 
@@ -27,9 +27,16 @@ export function OrbitStepper({ classicalOrbitElements }: OrbitStepperProps) {
 
   useFrame((_, delta) => {
     if (stepProgress < 1) {
+      if (!isAnimating) {
+        setIsAnimating(true);
+      }
       animationTime.current += delta;
       const progress = Math.min(animationTime.current / durationPerStep, 1);
       setStepProgress(progress);
+    } else {
+      if (isAnimating) {
+        setIsAnimating(false);
+      }
     }
   });
 
@@ -37,6 +44,7 @@ export function OrbitStepper({ classicalOrbitElements }: OrbitStepperProps) {
     classicalOrbitElements.semiMajorAxis,
     0,
   );
+
   const ellipticalOrbit = sampleOrbitInPlane(
     classicalOrbitElements.semiMajorAxis,
     classicalOrbitElements.eccentricity,

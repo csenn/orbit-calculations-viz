@@ -203,7 +203,9 @@ function calcArgumentOfPerigee(
     getVectorDotProduct(nVector, eccentricityVector) / denom,
   );
 
-  // result = 2 * Math.PI - result;
+  if (eccentricityVector.z < 0 || eccentricityVector.z > Math.PI) {
+    result = 2 * Math.PI - result;
+  }
 
   return result;
 }
@@ -220,6 +222,8 @@ function calcTrueAnomaly(
   );
 
   // if ()
+
+  // result = 2 * Math.PI - result;
 
   return result;
 }

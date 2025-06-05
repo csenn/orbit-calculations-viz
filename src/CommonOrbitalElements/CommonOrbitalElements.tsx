@@ -3,16 +3,15 @@ import {
   calcClassicalOrbitalElements,
   type VectorThree,
 } from "./utils/commonOrbitalElementsCalc";
-import { EarthDiagram } from "./EarthDiagram";
+import { EarthScene } from "./EarthScene";
 import { Box } from "@mui/material";
-import {
-  PositionVelocitySelector,
-  type IPositionAndVelocity,
-} from "./OrbitDialog/PositionVelocitySelector";
+import { type IPositionAndVelocity } from "./OrbitDialog/PositionVelocitySelector";
 import { COENavbar } from "./COENavbar";
 import { StepPickerNavbar } from "./StepNavbar/StepPickerNavbar";
 
 export function CommonOrbitalElements() {
+  const [modelLabel, setModelLabel] = useState("LEO");
+
   const [positionVector, setPositionVector] = useState<VectorThree>({
     x: 8228,
     y: 389,
@@ -52,6 +51,7 @@ export function CommonOrbitalElements() {
       <Box
         sx={{
           width: "350px",
+          minWidth: "350px",
           borderRight: "1px solid #ccc",
           color: "black",
         }}
@@ -59,6 +59,8 @@ export function CommonOrbitalElements() {
         {/* <PositionVelocitySelector /> */}
         {/* {JSON.stringify(classicalOrbitElements, null, 2)} */}
         <COENavbar
+          modelLabel={modelLabel}
+          setModelLabel={setModelLabel}
           onUpdatePositionAndVelocity={onUpdatePositionAndVelocity}
           classicalOrbitElements={classicalOrbitElements}
         />
@@ -68,7 +70,7 @@ export function CommonOrbitalElements() {
           <StepPickerNavbar />
         </Box>
         <Box sx={{ flexGrow: 1 }}>
-          <EarthDiagram
+          <EarthScene
             positionVector={positionVector}
             velocityVector={velocityVector}
             classicalOrbitElements={classicalOrbitElements}

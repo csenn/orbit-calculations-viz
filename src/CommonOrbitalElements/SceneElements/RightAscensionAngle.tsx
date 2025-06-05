@@ -44,7 +44,7 @@ export function RightAscensionAngle({
     radius,
     classicalOrbitElements.rightAscension,
   );
-  // return <Line points={arcPoints} color={color} lineWidth={2} material={dashedMaterial} />;
+
   return (
     <Line points={arcPoints} color={color} lineWidth={2} {...dashedProps} />
   );

@@ -18,8 +18,10 @@
     "@react-three/drei": "^10.1.2",
     "@react-three/fiber": "^9.1.2",
     "@types/three": "^0.177.0",
+    "prettier": "^3.5.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "satellite.js": "^6.0.0",
     "three": "^0.177.0",
     "zustand": "^5.0.5"
   },

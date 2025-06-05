@@ -53,33 +53,31 @@ function RoundView({ val }: { val: number }) {
 }
 
 interface COENavbarProps {
+  modelLabel: string;
+  setModelLabel: (label: string) => void;
   classicalOrbitElements: ClassicalOrbitalElements;
   onUpdatePositionAndVelocity: (posAndVel: IPositionAndVelocity) => void;
 }
 
 export function COENavbar({
+  modelLabel,
+  setModelLabel,
   onUpdatePositionAndVelocity,
   classicalOrbitElements,
 }: COENavbarProps) {
-  const coeViews = Object.entries(classicalOrbitElements).map(([key, val]) => {
-    return (
-      <Box sx={{ display: "flex", gap: "5px" }}>
-        <Box sx={{ fontWeight: "bold" }}>{key}:</Box>
-        <Box>{JSON.stringify(val)}</Box>
-      </Box>
-    );
-  });
-
   return (
     <Box>
       <PositionVelocitySelector
         onUpdatePositionAndVelocity={onUpdatePositionAndVelocity}
+        setModelLabel={setModelLabel}
       />
 
       <Box sx={{ paddingLeft: "10px", paddingTop: "5px" }}>
         {/* <Box sx={{marginTop: '10px',  color: 'primary.main'}}>
           Given Values
         </Box> */}
+
+        <LabelView label="Name">{modelLabel}</LabelView>
 
         <LabelView label="Position">
           <VectorView vector={classicalOrbitElements.position} />
@@ -96,22 +94,22 @@ export function COENavbar({
           <RoundView val={classicalOrbitElements.energy} />
         </LabelView>
 
-        <LabelView label="Semi Major Axis">
+        <LabelView label="Semi Major Axis (a)">
           <RoundView val={classicalOrbitElements.semiMajorAxis} />
         </LabelView>
 
-        <LabelView label="Eccentricity">
+        <LabelView label="Eccentricity (e)">
           <RoundView val={classicalOrbitElements.eccentricity} />
         </LabelView>
 
-        <LabelView label="Inclination">
+        <LabelView label="Inclination (i)">
           <DegreesView val={classicalOrbitElements.inclination} />
         </LabelView>
-        <LabelView label="Right Ascension">
+        <LabelView label="Right Ascension (Ω)">
           <DegreesView val={classicalOrbitElements.rightAscension} />
         </LabelView>
 
-        <LabelView label="Argument of Perigee">
+        <LabelView label="Argument of Perigee (ω)">
           <DegreesView val={classicalOrbitElements.argumentOfPerigee} />
         </LabelView>
 
